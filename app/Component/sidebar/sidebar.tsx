@@ -3,7 +3,7 @@ export default function Sidebar() {
     <>
       <div
         id="sideBarContainer"
-        className=" bg-slate-700 mt-0 min-h-[90%] text-slate-300 "
+        className=" bg-slate-700 mt-0 min-h-screen text-slate-300 "
       >
         <h1 className="text-slate-300 mt-4 ml-3 font-extrabold">TodoLists</h1>
         <div id="subDivide" className="flex flex-col gap-5 p-4 px-8 text-white">
