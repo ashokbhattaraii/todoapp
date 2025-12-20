@@ -4,7 +4,7 @@ import Button from "../button";
 export default function Navbar() {
   return (
     <>
-      <header className="w-full max-w-4xl md:max-w-7xl bg-slate-900 text-white">
+      <header className=" fixed left-0 right-0 w-full  bg-slate-900 text-white">
         <div className="flex justify items-center py-4 gap-2">
           <h1 className="text-2xl  font-extrabold ml-4 w-[45%]">All Tasks</h1>
           <div

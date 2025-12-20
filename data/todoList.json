@@ -23,5 +23,15 @@
     "name": "jasbdhasvd",
     "date": "2000-01-01",
     "category": "1"
+  },
+  {
+    "name": "TestDepartment",
+    "date": "",
+    "category": "Hello"
+  },
+  {
+    "name": "",
+    "date": "",
+    "category": "Hello"
   }
 ]
