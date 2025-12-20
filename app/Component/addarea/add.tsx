@@ -1,5 +1,10 @@
+import { useFormContext } from "../Context/FormContext";
 import { Cross } from "lucide-react";
 export default function Add() {
+  const { formClose, setFormState } = useFormContext();
+  function hanldeForm() {
+    setFormState(!formClose);
+  }
   return (
     <>
       <div className="flex w-full justify-center items-center">
@@ -8,12 +13,18 @@ export default function Add() {
         </div>
         <div
           id="addNewListContainer"
-          className="fixed inset-0 flex justify-center items-center bg-slate-800/50 text-white"
+          className={`fixed inset-0 flex justify-center items-center bg-slate-800/50 text-white ${
+            formClose ? "block" : "hidden"
+          }`}
         >
           <form className="bg-slate-800 backdrop-blur-2xl p-6 rounded">
             <div id="heading" className="flex justify-between gap-6 ">
               <h1 className="text-3xl font-extrabold">CREATE NEW TASK</h1>
-              <Cross className="ml-auto  rounded-full bg-lime-400" size={30} />
+              <Cross
+                className="ml-auto  rounded-full bg-lime-400"
+                size={30}
+                onClick={hanldeForm}
+              />
             </div>
             <div id="task" className="my-4">
               <span>TASK NAME</span>
