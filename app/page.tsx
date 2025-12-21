@@ -54,7 +54,7 @@ export default function Home() {
   return (
     <>
       <div className="w-full">
-        <div id="content" className="flex gap-4 md:max-w-7xl max-w-4xl w-full ">
+        <div id="content" className="flex  md:max-w-7xl max-w-4xl w-full ">
           <Sidebar />
           <Add
             onAddTodo={saveTodo}

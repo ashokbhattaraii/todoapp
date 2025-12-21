@@ -34,7 +34,7 @@ export default function Add({ onAddTodo, todoList }: any) {
 
   return (
     <>
-      <div className="flex w-full mt-20 px-4">
+      <div className="flex ml-20 mt w-full mt-22 justify-center">
         <div>
           {todoList.length > 0 ? (
             todoList.map((todo: any, index: any) => {
@@ -54,15 +54,19 @@ export default function Add({ onAddTodo, todoList }: any) {
                         key={index}
                         className="flex gap-10 px-4 max-w-4xl py-4"
                       >
-                        <p className="text-2xl text-white hover:text-lime-400">
+                        <p
+                          key={index}
+                          className="text-2xl text-white hover:text-lime-400"
+                        >
                           {todo.name}
                         </p>
                         <p className="ml-auto rounded-2xl bg-slate-400 px-4 py-1 text-black hover:bg-slate-300">
                           {todo.category.toUpperCase()}
                         </p>
                       </div>
-                      <div className="flex">
+                      <div className="flex" key={index}>
                         <input
+                          key={index}
                           type="checkbox"
                           className="ml-4 mt-4 h-6 w-6 cursor-pointer rounded border-slate-600 bg-slate-800 accent-lime-500 transition-all hover:scale-110 "
                         />
