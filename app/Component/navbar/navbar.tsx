@@ -1,7 +1,13 @@
 "use client";
 import { Search, Plus } from "lucide-react";
 import Button from "../button";
+import { useFormContext } from "../Context/FormContext";
 export default function Navbar() {
+  const { searchQuery, setSearchQuery } = useFormContext();
+  function handleSearch(value: any) {
+    console.log("saerch query", value);
+    setSearchQuery(value);
+  }
   return (
     <>
       <header className=" fixed left-0 right-0 w-full z-100 bg-slate-900 text-white">
@@ -18,6 +24,7 @@ export default function Navbar() {
               type="text"
               className="border border-slate-400 w-full py-2 pl-9 text-white outline-0 rounded bg-slate-800 placeholder:text-slate-500 "
               placeholder="Search Task"
+              onChange={(e) => handleSearch(e.target.value)}
             />
           </div>
           <div>

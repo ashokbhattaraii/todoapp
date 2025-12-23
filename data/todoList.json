@@ -1,123 +1,51 @@
 [
-    {
-    "name": "TestDepartment",
+  {
+    "name": "Test",
     "date": "2000-01-01",
     "category": "Work",
-    "priority": "important"
+    "priority": "important",
+    "completed": true
   },
   {
-    "name": "TestDepartment",
+    "name": "CheckingTreasurer",
     "date": "2000-01-01",
     "category": "Work",
-    "priority": "important"
+    "priority": "normal",
+    "completed": true
   },
   {
-    "name": "TestDepartment",
+    "name": "test",
     "date": "2000-01-01",
     "category": "Work",
-    "priority": "important"
+    "priority": "important",
+    "completed": true
   },
   {
-    "name": "TestDepartment",
-    "date": "2000-01-01",
-    "category": "Work",
-    "priority": "important"
-  },
-  {
-    "name": "TestDepartment",
-    "date": "2000-01-01",
-    "category": "Work",
-    "priority": "important"
-  },
-  {
-    "name": "TestDepartment",
-    "date": "2000-01-01",
-    "category": "Work",
-    "priority": "important"
-  },
-  {
-    "name": "",
-    "date": "",
-    "category": "1"
-  },
-  {
-    "name": "sabdjkasbdas",
-    "date": "",
-    "category": "1"
-  },
-  {
-    "name": "sabdasbdjas",
-    "date": "",
-    "category": "1"
-  },
-  {
-    "name": "",
-    "date": "2000-01-01",
-    "category": "1"
-  },
-  {
-    "name": "jasbdhasvd",
-    "date": "2000-01-01",
-    "category": "1"
-  },
-  {
-    "name": "TestDepartment",
-    "date": "",
-    "category": "Hello"
-  },
-  {
-    "name": "",
-    "date": "",
-    "category": "Hello"
-  },
-  {
-    "name": "asdsad",
+    "name": "Study",
     "date": "2000-01-01",
     "category": "Personal",
-    "status": "in-progress",
-    "priority": "normal"
+    "priority": "important",
+    "completed": true
   },
   {
-    "name": "",
+    "name": "duash hdasgbdhasbdhasbhdbashbdhasbdhbashdbasdbashbdhasbdjasbdhasdbhjasdbsa",
     "date": "",
-    "category": "1"
+    "category": "Work",
+    "priority": "normal",
+    "completed": false
   },
   {
-    "name": "sabdjkasbdas",
+    "name": "asbdjhasd",
     "date": "",
-    "category": "1"
+    "category": "Work",
+    "priority": "normal",
+    "completed": false
   },
   {
-    "name": "sabdasbdjas",
-    "date": "",
-    "category": "1"
-  },
-  {
-    "name": "",
+    "name": "sahdbjbhbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
     "date": "2000-01-01",
-    "category": "1"
-  },
-  {
-    "name": "jasbdhasvd",
-    "date": "2000-01-01",
-    "category": "1"
-  },
-  {
-    "name": "TestDepartment",
-    "date": "",
-    "category": "Hello"
-  },
-  {
-    "name": "",
-    "date": "",
-    "category": "Hello"
-  },
-  {
-    "name": "asdsad",
-    "date": "2000-01-01",
-    "category": "Personal",
-    "status": "in-progress",
-    "priority": "normal"
+    "category": "Study",
+    "priority": "normal",
+    "completed": false
   }
-
 ]

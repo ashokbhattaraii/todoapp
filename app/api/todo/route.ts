@@ -44,3 +44,24 @@ export async function GET() {
     return NextResponse.json([]);
   }
 }
+
+export async function PATCH(req: Request) {
+  try {
+    const body = await req.json();
+    const { name, completed } = body;
+    const storedTodo = await fs.readFile(filePath, "utf-8");
+    const arrangedTodo = JSON.parse(storedTodo);
+    const updatedtodo = arrangedTodo.map((todo: any) => {
+      if (todo.name === name) {
+        console.log("updated");
+        return { ...todo, completed: true };
+      }
+      return todo;
+    });
+    await fs.writeFile(filePath, JSON.stringify(updatedtodo, null, 2));
+    return NextResponse.json({ message: "Todo updated succcessfullt" });
+  } catch (error) {
+    console.log("Error updateding", error);
+    return NextResponse.json({ message: "Failed to updated", error });
+  }
+}

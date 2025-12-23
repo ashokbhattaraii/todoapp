@@ -5,13 +5,24 @@ import Sidebar from "./Component/sidebar/sidebar";
 
 import { useEffect, useState } from "react";
 import { useFormContext } from "./Component/Context/FormContext";
+import { todo } from "node:test";
 interface listType {
   name: string;
   date: string;
   category: string;
+  priority: "normal" | "important";
+  completed?: boolean;
 }
+
 export default function Home() {
-  const { formClose, setFormState } = useFormContext();
+  const {
+    formClose,
+    setFormState,
+    sideSelected,
+    setSideSelected,
+    searchQuery,
+    setSearchQuery,
+  } = useFormContext();
   const [todoList, setTodoList] = useState<listType[]>([]);
   const [saveCompleted, setSaveCompleted] = useState(false);
 
@@ -38,6 +49,25 @@ export default function Home() {
     }
   }
 
+  async function updateTodo(todoToUpdate: any) {
+    try {
+      const res = await fetch("api/todo", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(todoToUpdate),
+      });
+      if (res.ok) {
+        setTodoList((prev) =>
+          prev.map((item) =>
+            item.name === todoToUpdate.name ? todoToUpdate : item
+          )
+        );
+      }
+    } catch (error) {
+      console.log("Error updating", error);
+    }
+  }
+
   useEffect(() => {
     async function getTodoList() {
       fetch("api/todo").then((res) =>
@@ -47,9 +77,20 @@ export default function Home() {
 
     getTodoList();
   }, []);
-  useEffect(() => {
-    console.log("Current todoList state:", todoList);
-  }, [todoList]);
+
+  const displayList = todoList.filter((todo: any) => {
+    const sideFilter = sideSelected.toLowerCase();
+    const searchSelected =
+      todo.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      todo.category.toLowerCase().includes(searchQuery.toLowerCase());
+
+    if (!searchSelected) return false;
+
+    if (sideFilter === "all tasks") return true;
+    if (sideFilter === "important") return todo.priority == "important";
+    if (sideFilter === "pending") return !todo.completed;
+    if (sideFilter === "completed") return todo.completed;
+  });
 
   return (
     <>
@@ -58,8 +99,9 @@ export default function Home() {
           <Sidebar />
           <Add
             onAddTodo={saveTodo}
-            todoList={todoList}
+            todoList={displayList}
             saveCompleted={saveCompleted}
+            updateTodo={updateTodo}
           />
         </div>
       </div>

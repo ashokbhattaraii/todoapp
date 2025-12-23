@@ -1,17 +1,23 @@
 "use client";
 import { useFormContext } from "../Context/FormContext";
 import { X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import Button from "../button";
 
 interface listType {
   name: string;
   date: string;
   category: string;
   priority: "normal" | "important";
+  completed?: boolean;
 }
 
-export default function Add({ onAddTodo, todoList }: any) {
-  const { formClose, setFormState } = useFormContext();
+export default function Add({ onAddTodo, todoList, updateTodo }: any) {
+  const { formClose, setFormState, sideSelected, setSideSelected } =
+    useFormContext();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedTodo, setSelectedTodo] = useState<listType | null>(null);
 
   const {
     register,
@@ -23,14 +29,32 @@ export default function Add({ onAddTodo, todoList }: any) {
   const handleForm = () => setFormState(!formClose);
 
   const onSubmit = async (data: listType) => {
+    data.completed = false;
     await onAddTodo(data);
     reset();
+  };
+
+  const handleCheckboxClick = async (todo: listType) => {
+    setSelectedTodo(todo);
+    setModalOpen(true);
+  };
+
+  const handleConfiramtion = async () => {
+    if (selectedTodo) {
+      console.log("Selected todo", selectedTodo);
+      const updatedTodo = { ...selectedTodo, completed: true };
+      await updateTodo(updatedTodo);
+      setModalOpen(false);
+    }
+  };
+  const handleCancellation = async () => {
+    setModalOpen(false);
   };
 
   return (
     <div className="flex ml-20 w-full justify-center">
       <div className="mt-22">
-        {todoList.length > 0 ? (
+        {todoList?.length > 0 ? (
           todoList.map((todo: listType, index: number) => (
             <div
               key={index}
@@ -38,17 +62,23 @@ export default function Add({ onAddTodo, todoList }: any) {
             >
               <div className="w-full bg-slate-600 rounded">
                 <div className="flex gap-10 px-4 max-w-4xl py-4">
-                  <p className="md:text-2xl text-xl text-white hover:text-lime-400">
+                  <p
+                    className="md:text-2xl text-lg text-white hover:text-lime-400 
+              w-[150px] sm:w-[300px] md:w-[400px] 
+              wrap-break-word"
+                  >
                     {todo.name}
                   </p>
-                  <p className="ml-auto rounded-2xl bg-slate-400 px-4 py-1 text-black hover:bg-slate-300">
+                  <p className="ml-auto rounded-2xl bg-slate-400 px-4 h-10 flex items-center py-1 text-black hover:bg-slate-300">
                     {todo.category.toUpperCase()}
                   </p>
                 </div>
                 <div className="flex">
                   <input
                     type="checkbox"
+                    checked={!!todo.completed}
                     className="ml-4 mt-4 h-6 w-6 cursor-pointer rounded border-slate-600 bg-slate-800 accent-lime-500 transition-all hover:scale-110"
+                    onChange={() => handleCheckboxClick(todo)}
                   />
                   <p className="ml-auto mr-4 py-4 text-white">{todo.date}</p>
                 </div>
@@ -155,6 +185,28 @@ export default function Add({ onAddTodo, todoList }: any) {
           </button>
         </form>
       </div>
+
+      {modalOpen && (
+        <div className=" fixed inset-0 flex justify-center items-center  text-black bg-slate-400/10   rounded  ">
+          <div className="bg-slate-800 rounded-xl p-6 max-w-4xl w-full flex flex-col items-center shadow-lg">
+            <p className="font-bold text-white text-2xl">Mark as Complete?</p>
+            <div id="btn" className="flex gap-4 mt-8">
+              <button
+                className="px-3 py-2 rounded bg-lime-400 text-2xl text-white"
+                onClick={handleConfiramtion}
+              >
+                Confirm
+              </button>
+              <button
+                className="px-3 py-2 rounded bg-red-500 text-2xl text-white"
+                onClick={handleCancellation}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

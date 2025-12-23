@@ -4,6 +4,7 @@ import {
   LayoutDashboard,
   Star,
   Calendar,
+  Hourglass,
   CheckCircle,
 } from "lucide-react";
 import { useState } from "react";
@@ -11,7 +12,7 @@ import { useFormContext } from "../Context/FormContext";
 
 export default function Sidebar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { filter, setFilter } = useFormContext();
+  const { filter, setFilter, sideSelected, setSideSelected } = useFormContext();
 
   const selectedClass =
     "border-r-4 border-lime-400 bg-slate-600/50 text-lime-400";
@@ -20,13 +21,13 @@ export default function Sidebar() {
   const menuItems = [
     { name: "All Tasks", icon: <LayoutDashboard size={24} /> },
     { name: "Important", icon: <Star size={24} /> },
-    { name: "Planned", icon: <Calendar size={24} /> },
+    { name: "Pending", icon: <Hourglass size={24} /> },
     { name: "Completed", icon: <CheckCircle size={24} /> },
   ];
 
   return (
     <div
-      className={`fixed bg-slate-700 min-h-screen flex flex-col pt-10 transition-all duration-300 ease-in-out shrink-0 ${
+      className={`fixed bg-slate-700/70 min-h-screen flex flex-col pt-10 transition-all  backdrop-blur-2xl duration-300 ease-in-out shrink-0 ${
         menuOpen ? "w-64" : "w-20"
       }`}
     >
@@ -53,7 +54,12 @@ export default function Sidebar() {
         {menuItems.map((item) => (
           <button
             key={item.name}
-            onClick={() => setFilter(item.name)}
+            onClick={() => {
+              setFilter(item.name);
+              setSideSelected(item.name);
+
+              console.log(item.name, typeof item.name);
+            }}
             className={`flex items-center py-4 transition-all ${
               menuOpen ? "px-8 gap-6" : "justify-center"
             } ${filter === item.name ? selectedClass : defaultClass}`}
