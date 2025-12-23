@@ -130,7 +130,7 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
             </label>
             <input
               type="date"
-              {...register("date")}
+              {...register("date", { required: true })}
               className="mt-2 w-full px-4 py-3 rounded-xl bg-slate-700 text-slate-300 border border-slate-600 outline-none focus:ring-2 focus:ring-lime-500"
             />
           </div>
@@ -140,7 +140,7 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
               Category
             </label>
             <select
-              {...register("category")}
+              {...(register("category"), { required: true })}
               className="mt-2 w-full px-4 py-3 rounded-xl bg-slate-700 text-slate-300 border border-slate-600 outline-none focus:ring-2 focus:ring-lime-500"
             >
               <option value="Work">Work</option>
@@ -158,7 +158,7 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
                 <input
                   type="radio"
                   value="normal"
-                  {...register("priority")}
+                  {...(register("priority"), { required: true })}
                   defaultChecked
                   className="accent-lime-500"
                 />
