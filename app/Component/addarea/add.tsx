@@ -1,11 +1,12 @@
 "use client";
 import { useFormContext } from "../Context/FormContext";
-import { X } from "lucide-react";
+import { X, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../button";
 
 interface listType {
+  id?: string;
   name: string;
   date: string;
   category: string;
@@ -29,8 +30,13 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
   const handleForm = () => setFormState(!formClose);
 
   const onSubmit = async (data: listType) => {
-    data.completed = false;
-    await onAddTodo(data);
+    const newTodo = {
+      id: crypto.randomUUID(),
+      ...data,
+      completed: false,
+    };
+
+    await onAddTodo(newTodo);
     reset();
   };
 
@@ -49,6 +55,32 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
   };
   const handleCancellation = async () => {
     setModalOpen(false);
+  };
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [targetId, setTargetId] = useState("");
+  const handleDelete = (todo: any) => {
+    setIsDeleting(true);
+    setTargetId(todo.id);
+    console.log("target id", targetId);
+  };
+  const confirmDelete = async (todo: listType) => {
+    if (!targetId) return;
+    console.log("target id", targetId);
+    try {
+      const req = await fetch("/api/todo", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ targetId }),
+      });
+      window.location.reload();
+    } catch (error) {
+      console.log("Error deleteing", error);
+    } finally {
+      setIsDeleting(false);
+      setTargetId("");
+    }
   };
 
   return (
@@ -74,12 +106,19 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
                   </p>
                 </div>
                 <div className="flex">
-                  <input
-                    type="checkbox"
-                    checked={!!todo.completed}
-                    className="ml-4 mt-4 h-6 w-6 cursor-pointer rounded border-slate-600 bg-slate-800 accent-lime-500 transition-all hover:scale-110"
-                    onChange={() => handleCheckboxClick(todo)}
-                  />
+                  <div className="flex  items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={!!todo.completed}
+                      className="ml-4 mt-4 h-6 w-6 cursor-pointer rounded border-slate-600 bg-slate-800 accent-lime-500 transition-all hover:scale-110"
+                      onChange={() => handleCheckboxClick(todo)}
+                    />
+                    <Trash
+                      className="h-6 w-6 mt-3.5 text-white hover:text-red-700  "
+                      onClick={() => handleDelete(todo)}
+                    ></Trash>
+                  </div>
+
                   <p className="ml-auto mr-4 py-4 text-white">{todo.date}</p>
                 </div>
               </div>
@@ -140,7 +179,7 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
               Category
             </label>
             <select
-              {...(register("category"), { required: true })}
+              {...register("category", { required: true })}
               className="mt-2 w-full px-4 py-3 rounded-xl bg-slate-700 text-slate-300 border border-slate-600 outline-none focus:ring-2 focus:ring-lime-500"
             >
               <option value="Work">Work</option>
@@ -158,7 +197,7 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
                 <input
                   type="radio"
                   value="normal"
-                  {...(register("priority"), { required: true })}
+                  {...register("priority", { required: true })}
                   defaultChecked
                   className="accent-lime-500"
                 />
@@ -202,6 +241,37 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
                 onClick={handleCancellation}
               >
                 Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {isDeleting && (
+        <div className="fixed inset-0 flex justify-center items-center text-white bg-slate-900/60 backdrop-blur-sm z-50">
+          <div className="bg-slate-800 rounded-xl p-8 max-w-md w-full flex flex-col items-center shadow-2xl border border-slate-700">
+            <div className="bg-red-500/10 p-3 rounded-full mb-4">
+              <Trash className="text-red-500" size={32} />
+            </div>
+
+            <p className="font-bold text-2xl text-center">Delete Task?</p>
+            <p className="text-slate-400 text-center mt-2">
+              Are you sure you want to remove{" "}
+              <span className="text-white font-semibold"></span>? This action
+              cannot be undone.
+            </p>
+
+            <div className="flex gap-4 mt-8 w-full">
+              <button
+                className="flex-1 px-4 py-3 rounded-xl bg-slate-700 text-white font-semibold hover:bg-slate-600 transition"
+                onClick={() => setIsDeleting(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="flex-1 px-4 py-3 rounded-xl bg-red-600 text-white font-semibold hover:bg-red-500 transition"
+                onClick={confirmDelete}
+              >
+                Delete
               </button>
             </div>
           </div>

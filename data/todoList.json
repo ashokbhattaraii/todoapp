@@ -1,58 +1,18 @@
 [
   {
-    "name": "Complete Project Documentation",
-    "date": "2025-12-24",
-    "category": "Work",
-    "priority": "important",
-    "completed": false
-  },
-  {
-    "name": "Grocery Shopping: Fruits and Veggies",
-    "date": "2025-12-23",
-    "category": "Personal",
-    "priority": "normal",
-    "completed": false
-  },
-  {
-    "name": "Prepare Next.js Presentation",
-    "date": "2025-12-26",
-    "category": "Work",
-    "priority": "important",
-    "completed": true
-  },
-  {
-    "name": "Morning Gym Session (Leg Day)",
-    "date": "2025-12-23",
-    "category": "Personal",
-    "priority": "normal",
-    "completed": true
-  },
-  {
-    "name": "Read React Design Patterns Chapter 4",
-    "date": "2025-12-25",
-    "category": "Study",
-    "priority": "normal",
-    "completed": false
-  },
-  {
-    "name": "Review Team Pull Requests",
-    "date": "2025-12-24",
-    "category": "Work",
-    "priority": "important",
-    "completed": false
-  },
-  {
-    "name": "Finish CSS Grid Layout Assignment",
-    "date": "2025-12-27",
+    "id": "b2c3d4e5-f6a7-4b8c-9d0e-1a2b3c4d5e6f",
+    "name": "Study Next.js Route Handlers",
+    "date": "2026-01-07",
     "category": "Study",
     "priority": "important",
     "completed": false
   },
   {
-    "name": "Book Flight Tickets for Summer Vacation",
-    "date": "2025-12-30",
+    "id": "f1e2d3c4-b5a6-4987-8765-43210fedcba9",
+    "name": "Gym Session - Leg Day",
+    "date": "2026-01-08",
     "category": "Personal",
     "priority": "normal",
-    "completed": false
+    "completed": true
   }
 ]

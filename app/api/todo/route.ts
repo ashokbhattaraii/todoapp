@@ -65,3 +65,20 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ message: "Failed to updated", error });
   }
 }
+
+export async function DELETE(req: Request) {
+  const { targetId } = await req.json();
+  try {
+    const storedTodo = await fs.readFile(filePath, "utf-8");
+    const arrangedTodo = JSON.parse(storedTodo);
+
+    const filteredTodo = arrangedTodo.filter(
+      (todo: any) => todo.id !== targetId
+    );
+
+    await fs.writeFile(filePath, JSON.stringify(filteredTodo, null, 2));
+    NextResponse.json({ message: "Todo Deleted Successfully", status: 200 });
+  } catch (error) {
+    NextResponse.json({ message: "Error deleting ", error });
+  }
+}
