@@ -63,9 +63,9 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
     setTargetId(todo.id);
     console.log("target id", targetId);
   };
-  const confirmDelete = async (todo: listType) => {
+  const confirmDelete = async () => {
     if (!targetId) return;
-    console.log("target id", targetId);
+
     try {
       const req = await fetch("/api/todo", {
         method: "DELETE",
@@ -74,12 +74,15 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
         },
         body: JSON.stringify({ targetId }),
       });
-      window.location.reload();
+      if (req.ok) {
+        window.location.reload();
+      }
     } catch (error) {
       console.log("Error deleteing", error);
     } finally {
       setIsDeleting(false);
       setTargetId("");
+      window.location.reload();
     }
   };
 
@@ -269,7 +272,7 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
               </button>
               <button
                 className="flex-1 px-4 py-3 rounded-xl bg-red-600 text-white font-semibold hover:bg-red-500 transition"
-                onClick={confirmDelete}
+                onClick={() => confirmDelete()}
               >
                 Delete
               </button>
