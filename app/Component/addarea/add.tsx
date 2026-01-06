@@ -74,9 +74,6 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
         },
         body: JSON.stringify({ targetId }),
       });
-      if (req.ok) {
-        window.location.reload();
-      }
     } catch (error) {
       console.log("Error deleteing", error);
     } finally {
