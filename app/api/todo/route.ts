@@ -37,10 +37,10 @@ export async function GET() {
   try {
     const todos = await fs.readFile(filePath, "utf-8");
     const todoList = JSON.parse(todos);
-    console.log("Fetched Todos:", todoList);
+    //.log("Fetched Todos:", todoList);
     return NextResponse.json(todoList);
   } catch (error) {
-    console.log("Get error", error);
+    //.log("Get error", error);
     return NextResponse.json([]);
   }
 }
@@ -53,7 +53,7 @@ export async function PATCH(req: Request) {
     const arrangedTodo = JSON.parse(storedTodo);
     const updatedtodo = arrangedTodo.map((todo: any) => {
       if (todo.name === name) {
-        console.log("updated");
+        //.log("updated");
         return { ...todo, completed: true };
       }
       return todo;
@@ -61,7 +61,7 @@ export async function PATCH(req: Request) {
     await fs.writeFile(filePath, JSON.stringify(updatedtodo, null, 2));
     return NextResponse.json({ message: "Todo updated succcessfullt" });
   } catch (error) {
-    console.log("Error updateding", error);
+    //.log("Error updateding", error);
     return NextResponse.json({ message: "Failed to updated", error });
   }
 }

@@ -58,7 +58,7 @@ export default function Sidebar() {
               setFilter(item.name);
               setSideSelected(item.name);
 
-              console.log(item.name, typeof item.name);
+              //.log(item.name, typeof item.name);
             }}
             className={`flex items-center py-4 transition-all ${
               menuOpen ? "px-8 gap-6" : "justify-center"

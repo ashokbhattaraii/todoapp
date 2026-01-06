@@ -5,7 +5,7 @@ import { useFormContext } from "../Context/FormContext";
 export default function Navbar() {
   const { searchQuery, setSearchQuery } = useFormContext();
   function handleSearch(value: any) {
-    console.log("saerch query", value);
+    //.log("saerch query", value);
     setSearchQuery(value);
   }
   return (

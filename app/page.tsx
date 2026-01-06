@@ -34,14 +34,14 @@ export default function Home() {
         body: JSON.stringify(newTodo),
       });
       const result = await res.json();
-      console.log("success", result);
+      //.log("success", result);
       setTodoList((prevTodo) => {
         return [...prevTodo, newTodo];
-        console.log(prevTodo);
-        console.log("list", newTodo);
+        //.log(prevTodo);
+        //.log("list", newTodo);
       });
     } catch (error) {
-      console.log("Eroro saving", error);
+      //.log("Eroro saving", error);
     } finally {
       setTimeout(() => {
         setFormState(false);
@@ -64,7 +64,7 @@ export default function Home() {
         );
       }
     } catch (error) {
-      console.log("Error updating", error);
+      //.log("Error updating", error);
     }
   }
 

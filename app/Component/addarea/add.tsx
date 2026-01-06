@@ -47,7 +47,7 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
 
   const handleConfiramtion = async () => {
     if (selectedTodo) {
-      console.log("Selected todo", selectedTodo);
+      //.log("Selected todo", selectedTodo);
       const updatedTodo = { ...selectedTodo, completed: true };
       await updateTodo(updatedTodo);
       setModalOpen(false);
@@ -61,7 +61,7 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
   const handleDelete = (todo: any) => {
     setIsDeleting(true);
     setTargetId(todo.id);
-    console.log("target id", targetId);
+    //.log("target id", targetId);
   };
   const confirmDelete = async () => {
     if (!targetId) return;
@@ -75,7 +75,7 @@ export default function Add({ onAddTodo, todoList, updateTodo }: any) {
         body: JSON.stringify({ targetId }),
       });
     } catch (error) {
-      console.log("Error deleteing", error);
+      //.log("Error deleteing", error);
     } finally {
       setIsDeleting(false);
       setTargetId("");
