@@ -1,18 +1,2 @@
 [
-  {
-    "id": "b2c3d4e5-f6a7-4b8c-9d0e-1a2b3c4d5e6f",
-    "name": "Study Next.js Route Handlers",
-    "date": "2026-01-07",
-    "category": "Study",
-    "priority": "important",
-    "completed": false
-  },
-  {
-    "id": "f1e2d3c4-b5a6-4987-8765-43210fedcba9",
-    "name": "Gym Session - Leg Day",
-    "date": "2026-01-08",
-    "category": "Personal",
-    "priority": "normal",
-    "completed": true
-  }
 ]
