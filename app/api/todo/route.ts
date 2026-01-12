@@ -7,7 +7,18 @@ import { ManageCookie } from "@/app/cookie/manageCookie";
 
 async function getFilePath() {
   const sessionId = await ManageCookie();
-  return path.join(process.cwd(), "data", `todolist_${sessionId}.json`);
+  const dirPath = path.join(process.cwd(), "data");
+  const filePath = path.join(dirPath, `todo_List_${sessionId}.json`);
+
+  await fs.mkdir(dirPath, { recursive: true });
+
+  try {
+    await fs.access(filePath);
+  } catch {
+    await fs.writeFile(filePath, JSON.stringify([], null, 2));
+  }
+
+  return filePath;
 }
 export async function POST(req: Request) {
   const filePath = await getFilePath();

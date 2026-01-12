@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Add from "./Component/addarea/add";
 import Sidebar from "./Component/sidebar/sidebar";
-import { ManageCookie } from "./cookie/manageCookie";
+
 import { useEffect, useState } from "react";
 import { useFormContext } from "./Component/Context/FormContext";
 import { todo } from "node:test";
@@ -14,8 +14,7 @@ interface listType {
   completed?: boolean;
 }
 
-export default async function Home() {
-  await ManageCookie();
+export default function Home() {
   const {
     formClose,
     setFormState,
@@ -35,14 +34,11 @@ export default async function Home() {
         body: JSON.stringify(newTodo),
       });
       const result = await res.json();
-      //.log("success", result);
+
       setTodoList((prevTodo) => {
         return [...prevTodo, newTodo];
-        //.log(prevTodo);
-        //.log("list", newTodo);
       });
     } catch (error) {
-      //.log("Eroro saving", error);
     } finally {
       setTimeout(() => {
         setFormState(false);
