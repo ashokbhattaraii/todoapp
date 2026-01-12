@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Add from "./Component/addarea/add";
 import Sidebar from "./Component/sidebar/sidebar";
-
+import { ManageCookie } from "./cookie/manageCookie";
 import { useEffect, useState } from "react";
 import { useFormContext } from "./Component/Context/FormContext";
 import { todo } from "node:test";
@@ -14,7 +14,8 @@ interface listType {
   completed?: boolean;
 }
 
-export default function Home() {
+export default async function Home() {
+  await ManageCookie();
   const {
     formClose,
     setFormState,

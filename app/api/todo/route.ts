@@ -2,8 +2,15 @@ import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import { readFile, writeFile } from "fs";
 import path from "path";
-const filePath = path.join(process.cwd(), "data", "todoList.json");
+
+import { ManageCookie } from "@/app/cookie/manageCookie";
+
+async function getFilePath() {
+  const sessionId = await ManageCookie();
+  return path.join(process.cwd(), "data", `todolist_${sessionId}.json`);
+}
 export async function POST(req: Request) {
+  const filePath = await getFilePath();
   try {
     const data = await req.json();
     const existingTodo = await fs.readFile(filePath, "utf-8");
@@ -34,6 +41,7 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
+  const filePath = await getFilePath();
   try {
     const todos = await fs.readFile(filePath, "utf-8");
     const todoList = JSON.parse(todos);
@@ -46,6 +54,7 @@ export async function GET() {
 }
 
 export async function PATCH(req: Request) {
+  const filePath = await getFilePath();
   try {
     const body = await req.json();
     const { name, completed } = body;
@@ -53,7 +62,6 @@ export async function PATCH(req: Request) {
     const arrangedTodo = JSON.parse(storedTodo);
     const updatedtodo = arrangedTodo.map((todo: any) => {
       if (todo.name === name) {
-        //.log("updated");
         return { ...todo, completed: true };
       }
       return todo;
@@ -61,12 +69,12 @@ export async function PATCH(req: Request) {
     await fs.writeFile(filePath, JSON.stringify(updatedtodo, null, 2));
     return NextResponse.json({ message: "Todo updated succcessfullt" });
   } catch (error) {
-    //.log("Error updateding", error);
     return NextResponse.json({ message: "Failed to updated", error });
   }
 }
 
 export async function DELETE(req: Request) {
+  const filePath = await getFilePath();
   const { targetId } = await req.json();
   try {
     const storedTodo = await fs.readFile(filePath, "utf-8");
