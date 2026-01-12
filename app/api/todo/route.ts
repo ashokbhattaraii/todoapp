@@ -7,7 +7,7 @@ import { ManageCookie } from "@/app/cookie/manageCookie";
 
 async function getFilePath() {
   const sessionId = await ManageCookie();
-  const dirPath = path.join(process.cwd(), "data");
+  const dirPath = path.join("/tmp", "data");
   const filePath = path.join(dirPath, `todo_List_${sessionId}.json`);
 
   await fs.mkdir(dirPath, { recursive: true });
